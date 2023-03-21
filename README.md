@@ -9,6 +9,10 @@
 
 ## How to use langchain-tools
 
+```
+pip install git+https://github.com/fuyu-quant/langchain-tools.git
+```
+
 ### Try different tools
 * datascience-tools
 
