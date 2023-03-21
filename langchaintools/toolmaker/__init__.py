@@ -1,2 +1,2 @@
-from .toolmaker import toolmaker
+from toolmaker.toolmaker import toolmaker
 __all__ = ['toolmaker']
