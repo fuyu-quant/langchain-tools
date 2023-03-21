@@ -1,6 +1,6 @@
 from langchain.agents import tool
 
 
-@tool("toolmaker")
+#@tool("toolmaker")
 def func1():
     print('テスト')
