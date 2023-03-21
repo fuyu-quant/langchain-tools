@@ -1,1 +1,1 @@
-from toolmaker.toolmaker import *
+from toolmaker.toolmaker import too

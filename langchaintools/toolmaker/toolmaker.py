@@ -2,8 +2,8 @@ import textwrap
 from langchain.llms import OpenAI
 
 
-@tool("tool_maker")
-def tool_maker(query: str) -> str:
+@tool("toolmaker")
+def toolmaker(query: str) -> str:
     """useful to create some kind of langchain-tool"""
 
     llm = OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1000)
