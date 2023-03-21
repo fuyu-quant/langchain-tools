@@ -1,4 +1,5 @@
 import textwrap
+from langchain.llms import OpenAI
 
 
 @tool("tool_maker")
