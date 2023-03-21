@@ -1,4 +1,6 @@
 import textwrap
+
+from langchain.agents import tool
 from langchain.llms import OpenAI
 
 
