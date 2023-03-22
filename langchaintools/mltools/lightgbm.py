@@ -14,8 +14,8 @@ def lgbm_train_tool(query: str) -> str:
     """useful to receive csv files and learn LightGBM"""
 
     #global lgbm
-
-    df = pd.read_csv(f'/content/{query}', index_col = 0)
+    path = os.getcwd()
+    df = pd.read_csv(f'{path}/{query}', index_col = 0)
     x = df.drop(['target'], axis = 1)
     y = df['target']
 
@@ -48,10 +48,10 @@ def lgbm_train_tool(query: str) -> str:
         valid_sets=[lgb_train,lgb_eval],
         verbose_eval=10,
         #num_boost_round=1000,
-        early_stopping_rounds= 20
+        early_stopping_rounds= 10
         )
     
-    path = os.getcwd()
+    
     file = f'{path}/trained_model.pkl'
     pickle.dump(lgbm_model, open(file, 'wb'))
 
@@ -65,15 +65,17 @@ def lgbm_train_tool(query: str) -> str:
 def lgbm_inference_tool(query: str) -> str:
     """useful for receiving csv files and making inferences in LightGBM"""
 
-    df = pd.read_csv(f'/content/{query}', index_col = 0)[406:]
+    path = os.getcwd()
+    df = pd.read_csv(f'{path}/{query}', index_col = 0)[406:]
     x = df.drop(['target'], axis = 1)
  
 
-    lgbm_model = pickle.load(open('trained_model.pkl', 'rb'))
+    file = f'{path}/trained_model.pkl'
+    lgbm_model = pickle.load(open(file, 'rb'))
 
     y_pred = lgbm_model.predict(x, num_interation=lgbm_model.best_iteration)
     y_pred = pd.DataFrame(y_pred)
-    y_pred.to_csv('/content/inference.csv')
+    y_pred.to_csv(f'{path}/inference.csv')
 
 
     result = "LightGBMの推論が完了しました" 
