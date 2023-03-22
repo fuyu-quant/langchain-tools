@@ -15,7 +15,7 @@ def lgbm_train_tool(query: str) -> str:
 
     #import lightgbm as lgbm
 
-    #global lgbm
+    global lgbm
 
     params = {
         'boosting_type': 'gbdt',
