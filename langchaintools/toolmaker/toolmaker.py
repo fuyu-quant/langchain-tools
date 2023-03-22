@@ -4,7 +4,7 @@ from langchain.agents import tool
 from langchain.llms import OpenAI
 
 
-#@tool("toolmaker")
+@tool("toolmaker")
 def toolmaker(query: str) -> str:
     """useful to create some kind of langchain-tool"""
 
