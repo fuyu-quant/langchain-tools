@@ -1,2 +1,2 @@
-from toolmaker.main import toolmaker
+from toolmaker.main import *
 #__all__ = ['toolmaker']
