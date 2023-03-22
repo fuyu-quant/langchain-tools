@@ -44,7 +44,6 @@ def lgbm_train_tool(query: str) -> str:
     path = os.getcwd()
     file = f'{path}/trained_model.pkl'
     pickle.dump(lgbm_model, open(file, 'wb'))
-    del lgbm
 
     result = "LightGBMの学習が完了しました"
     return result
