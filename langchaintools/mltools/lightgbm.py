@@ -11,7 +11,7 @@ from langchain.agents import tool
 
 @tool("lgbm_train_tool")
 def lgbm_train_tool(query: str) -> str:
-    """useful for learning LightGBM"""
+    """useful to receive csv files and learn LightGBM"""
 
     #import lightgbm as lgbm
 
@@ -22,7 +22,7 @@ def lgbm_train_tool(query: str) -> str:
         'objective': 'regression'
     }
 
-    df = pd.read_csv('/content/Boston.csv', index_col = 0)
+    df = pd.read_csv(f'/content/{query}', index_col = 0)
     x = df.drop(['medv'], axis = 1)
     y = df['medv']
 
