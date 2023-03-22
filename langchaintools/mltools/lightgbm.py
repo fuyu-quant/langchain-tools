@@ -13,13 +13,7 @@ from langchain.agents import tool
 def lgbm_train_tool(query: str) -> str:
     """useful to receive csv files and learn LightGBM"""
 
-
-    global lgbm
-
-    params = {
-        'boosting_type': 'gbdt',
-        'objective': 'regression'
-    }
+    #global lgbm
 
     df = pd.read_csv(f'/content/{query}', index_col = 0)
     x = df.drop(['target'], axis = 1)
@@ -38,11 +32,24 @@ def lgbm_train_tool(query: str) -> str:
     lgb_eval = lgbm.Dataset(x_valid,y_valid,reference=lgb_train,categorical_feature=categorical_features,free_raw_data=False)
 
 
-    lgbm_model = lgbm.train(params,lgb_train,
-                 valid_sets=[lgb_train,lgb_eval],
-                 verbose_eval=10,
-                 num_boost_round=1000,
-                 early_stopping_rounds= 20)
+    # number of classes of the objective variable
+    num_class = len(df['target'].unique())
+    if num_class == 2:
+        params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'binary', 'metric': 'auc'}
+    elif num_class <= 50:
+        params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'multiclass', 'metric': 'multi_logloss','num_class': num_class}
+    else:
+        params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'regression','metric': 'rmse'}
+
+
+    lgbm_model = lgbm.train(
+        params,
+        lgb_train,
+        valid_sets=[lgb_train,lgb_eval],
+        verbose_eval=10,
+        #num_boost_round=1000,
+        early_stopping_rounds= 20
+        )
     
     path = os.getcwd()
     file = f'{path}/trained_model.pkl'
