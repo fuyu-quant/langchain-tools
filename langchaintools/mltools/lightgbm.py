@@ -13,7 +13,9 @@ from langchain.agents import tool
 def lgbm_train_tool(query: str) -> str:
     """useful for learning LightGBM"""
 
-    global lgbm
+    import lightgbm as lgbm
+
+    #global lgbm
 
     params = {
         'boosting_type': 'gbdt',
