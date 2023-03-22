@@ -13,7 +13,7 @@ from langchain.agents import tool
 def lgbm_train_tool(query: str) -> str:
     """useful for learning LightGBM"""
 
-    import lightgbm as lgbm
+    #import lightgbm as lgbm
 
     #global lgbm
 
