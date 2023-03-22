@@ -13,7 +13,6 @@ from langchain.agents import tool
 def lgbm_train_tool(query: str) -> str:
     """useful to receive csv files and learn LightGBM"""
 
-    #import lightgbm as lgbm
 
     global lgbm
 
@@ -23,12 +22,16 @@ def lgbm_train_tool(query: str) -> str:
     }
 
     df = pd.read_csv(f'/content/{query}', index_col = 0)
-    x = df.drop(['medv'], axis = 1)
-    y = df['medv']
+    x = df.drop(['target'], axis = 1)
+    y = df['target']
 
     x_train,x_valid,y_train,y_valid = train_test_split(x, y ,test_size = 0.2, random_state=3655)
 
+    # categorical features
     categorical_features = []
+    for i in df.columns:
+        if df[i].dtypes == 'category':
+            categorical_features.append(i)
 
 
     lgb_train = lgbm.Dataset(x_train,y_train,categorical_feature=categorical_features,free_raw_data=False)
@@ -49,13 +52,15 @@ def lgbm_train_tool(query: str) -> str:
     return result
 
 
+
+
 @tool("lgbm_inference_tool")
 def lgbm_inference_tool(query: str) -> str:
-    """useful for inference with LightGBM."""
+    """useful for receiving csv files and making inferences in LightGBM"""
 
-    df = pd.read_csv('/content/Boston.csv', index_col = 0)[406:]
-    x = df.drop(['medv'], axis = 1)
-    #y = df['medv']
+    df = pd.read_csv(f'/content/{query}', index_col = 0)[406:]
+    x = df.drop(['target'], axis = 1)
+ 
 
     lgbm_model = pickle.load(open('trained_model.pkl', 'rb'))
 
