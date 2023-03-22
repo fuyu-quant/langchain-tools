@@ -1,3 +1,4 @@
+import os
 import pickle
 import pandas as pd
 import lightgbm as lgbm
@@ -38,7 +39,8 @@ def lgbm_train_tool(query: str) -> str:
                  num_boost_round=1000,
                  early_stopping_rounds= 20)
     
-    file = 'trained_model.pkl'
+    path = os.getcwd()
+    file = f'{path}/trained_model.pkl'
     pickle.dump(lgbm_model, open(file, 'wb'))
     del lgbm
 
