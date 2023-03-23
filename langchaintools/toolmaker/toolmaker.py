@@ -1,3 +1,4 @@
+import os
 import textwrap
 
 from langchain.agents import tool
@@ -8,6 +9,7 @@ from langchain.llms import OpenAI
 def toolmaker(query: str) -> str:
     """useful to create some kind of langchain-tool"""
 
+    path = os.getcwd()
     llm = OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1000)
 
     code = llm('code of ' + query)
@@ -25,7 +27,7 @@ def toolmaker(query: str) -> str:
 
     result = bos.format(name=name, query=query) + code + eos.format(name=name)
 
-    file = open(f'/content/{name}.py', mode='w')
+    file = open(f'{path}/{name}.py', mode='w')
     file.write(result)
     file.close()
     
