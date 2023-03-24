@@ -51,7 +51,7 @@ def lgbm_train_tool(query: str) -> str:
         early_stopping_rounds= 10
         )
     
-    
+
     file = f'{path}/trained_model.pkl'
     pickle.dump(lgbm_model, open(file, 'wb'))
 
@@ -66,8 +66,8 @@ def lgbm_inference_tool(query: str) -> str:
     """useful for receiving csv files and making inferences in LightGBM"""
 
     path = os.getcwd()
-    df = pd.read_csv(f'{path}/{query}', index_col = 0)[406:]
-    x = df.drop(['target'], axis = 1)
+    x = pd.read_csv(f'{path}/{query}', index_col = 0)[406:]
+
  
 
     file = f'{path}/trained_model.pkl'
