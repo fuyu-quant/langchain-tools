@@ -29,7 +29,7 @@ tools = [
 For more information, see the following run example
 
 ### Examples
-* This is a notebook for a demonstration of learning LightGBM using only natural language
+* This is a notebook for a demonstration of learning LightGBM using only natural language  
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_LightGBM.ipynb)
 
 ## toolmaker
