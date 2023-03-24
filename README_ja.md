@@ -31,8 +31,8 @@ tools = [
 ```
 詳細については以下の実行例を参照してください
 
-### Examples
-* LightGBMを自然言語だけで学習させるデモのノートブックです  
+* Examples
+    * LightGBMを自然言語だけで学習させるデモのノートブック   
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_LightGBM.ipynb)
 
 ## toolmaker
@@ -44,8 +44,8 @@ tools = [Tool(name = 'toolmaker', func = toolmaker.toolmaker, description="")]
 
 ※まだ精度があまり良くないので改善案などがあれば教えていただきたいです
 
-### Examples
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_LightGBM.ipynb)
+* Examples  
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_toolmaker.ipynb)
 
 ## Reference
 * https://langchain.readthedocs.io/en/latest/modules/agents/examples/custom_tools.html

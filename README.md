@@ -28,8 +28,8 @@ tools = [
 ```
 For more information, see the following run example
 
-### Examples
-* This is a notebook for a demonstration of learning LightGBM using only natural language  
+* Examples  
+    * LightGBM  
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_LightGBM.ipynb)
 
 ## toolmaker
@@ -40,8 +40,8 @@ tools = [Tool(name = 'toolmaker', func = toolmaker.toolmaker, description="")]
 ```
 ※The accuracy is still not very good, so if you have any suggestions for improvement, I'd like to hear them.
 
-### Examples
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_LightGBM.ipynb)
+* Examples  
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_toolmaker.ipynb)
 
 ## Reference
 * https://langchain.readthedocs.io/en/latest/modules/agents/examples/custom_tools.html
