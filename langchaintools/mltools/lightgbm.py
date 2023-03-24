@@ -66,7 +66,7 @@ def lgbm_inference_tool(query: str) -> str:
     """useful for receiving csv files and making inferences in LightGBM"""
 
     path = os.getcwd()
-    x = pd.read_csv(f'{path}/{query}', index_col = 0)[406:]
+    x = pd.read_csv(f'{path}/{query}', index_col = 0)
 
  
 
