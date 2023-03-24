@@ -32,7 +32,7 @@ tools = [
 詳細については以下の実行例を参照してください
 
 ### Examples
-* LightGBMを自然言語だけで学習させるデモのノートブックです
+* LightGBMを自然言語だけで学習させるデモのノートブックです  
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fuyu-quant/langchain-tools/blob/main/examples/langchain-tools_LightGBM.ipynb)
 
 ## toolmaker
