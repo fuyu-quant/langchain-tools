@@ -1,9 +1,11 @@
 from langchain.agents import tool
 
+global tools
+
 @tool("toolappender")
 def toolappender(query: str) -> str:
     """toolをtoolsに追加するのに役に立ちます.入力は追加したいtoolの名前です"""
-    # 入力は
+    
     code1 = f'import {query}'
     exec(code1, globals())
     code2 = f"tools.append(Tool(name = '{query}', func = {query}.{query}, description=''))"
