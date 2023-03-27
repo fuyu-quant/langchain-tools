@@ -1,6 +1,8 @@
 from langchain.agents import tool
+from langchain.agents import Tool
+from langchain.agents import initialize_agent
 
-tools = []
+
 
 @tool("toolappender")
 def toolappender(query: str) -> str:
