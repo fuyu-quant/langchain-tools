@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
-def requirements_from_file(file_name):
-    return open(file_name).read().splitlines()
+#def requirements_from_file(file_name):
+#    return open(file_name).read().splitlines()
 
 
 setup(
