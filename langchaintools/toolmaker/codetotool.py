@@ -10,7 +10,7 @@ def codetotool(query: str) -> str:
 
     path = os.getcwd()
     
-    exec(query)
+    exec(query, globals())
 
     tool_name = data[0]
     description = data[1]
