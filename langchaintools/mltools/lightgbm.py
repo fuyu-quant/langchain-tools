@@ -4,79 +4,86 @@ import pandas as pd
 import lightgbm as lgbm
 from sklearn.model_selection import train_test_split
 
-
-from langchain.agents import tool
-
+from langchain.tools import BaseTool
 
 
-@tool("lgbm_train_tool")
-def lgbm_train_tool(query: str) -> str:
-    """useful to receive csv files and learn LightGBM"""
+class LgbmtrainTool(BaseTool):
+    name = "lgbm_train_tool"
+    description = """useful to receive csv file name and learn LightGBM"""
 
-    #global lgbm
-    path = os.getcwd()
-    df = pd.read_csv(f'{path}/{query}', index_col = 0)
-    x = df.drop(['target'], axis = 1)
-    y = df['target']
+    def _run(self, query: str) -> str:
+      """Use the tool."""
+      #global lgbm
+      path = os.getcwd()
+      df = pd.read_csv(f'{path}/{query}', index_col = 0)
+      x = df.drop(['target'], axis = 1)
+      y = df['target']
 
-    x_train,x_valid,y_train,y_valid = train_test_split(x, y ,test_size = 0.2, random_state=3655)
+      x_train,x_valid,y_train,y_valid = train_test_split(x, y ,test_size = 0.2, random_state=3655)
 
-    # categorical features
-    categorical_features = []
-    for i in df.columns:
-        if df[i].dtypes == 'category':
-            categorical_features.append(i)
-
-
-    lgb_train = lgbm.Dataset(x_train,y_train,categorical_feature=categorical_features,free_raw_data=False)
-    lgb_eval = lgbm.Dataset(x_valid,y_valid,reference=lgb_train,categorical_feature=categorical_features,free_raw_data=False)
+      # categorical features
+      categorical_features = []
+      for i in df.columns:
+          if df[i].dtypes == 'category':
+              categorical_features.append(i)
 
 
-    # number of classes of the objective variable
-    num_class = len(df['target'].unique())
-    if num_class == 2:
-        params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'binary', 'metric': 'auc'}
-    elif num_class <= 50:
-        params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'multiclass', 'metric': 'multi_logloss','num_class': num_class}
-    else:
-        params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'regression','metric': 'rmse'}
+      lgb_train = lgbm.Dataset(x_train,y_train,categorical_feature=categorical_features,free_raw_data=False)
+      lgb_eval = lgbm.Dataset(x_valid,y_valid,reference=lgb_train,categorical_feature=categorical_features,free_raw_data=False)
 
 
-    lgbm_model = lgbm.train(
-        params,
-        lgb_train,
-        valid_sets=[lgb_train,lgb_eval],
-        verbose_eval=10,
-        #num_boost_round=1000,
-        early_stopping_rounds= 10
-        )
+      # number of classes of the objective variable
+      num_class = len(df['target'].unique())
+      if num_class == 2:
+          params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'binary', 'metric': 'auc'}
+      elif num_class <= 50:
+          params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'multiclass', 'metric': 'multi_logloss','num_class': num_class}
+      else:
+          params = {'task': 'train', 'boosting_type': 'gbdt','objective': 'regression','metric': 'rmse'}
+
+
+      lgbm_model = lgbm.train(
+          params,
+          lgb_train,
+          valid_sets=[lgb_train,lgb_eval],
+          verbose_eval=10,
+          #num_boost_round=1000,
+          early_stopping_rounds= 10
+          )
+      
+
+      file = f'{path}/trained_model.pkl'
+      pickle.dump(lgbm_model, open(file, 'wb'))
+
+      result = "LightGBMの学習が完了しました"
+      return result
+
+    async def _arun(self, query: str) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("BingSearchRun does not support async")
+
+
+class LgbminferenceTool(BaseTool):
+    name = "lgbm_inference_tool"
+    description = """useful for receiving csv file name and making inferences in LightGBM"""
+
+    def _run(self, query: str) -> str:
+        path = os.getcwd()
+        x = pd.read_csv(f'{path}/{query}', index_col = 0)
+
     
 
-    file = f'{path}/trained_model.pkl'
-    pickle.dump(lgbm_model, open(file, 'wb'))
+        file = f'{path}/trained_model.pkl'
+        lgbm_model = pickle.load(open(file, 'rb'))
 
-    result = "LightGBMの学習が完了しました"
-    return result
-
-
-
-
-@tool("lgbm_inference_tool")
-def lgbm_inference_tool(query: str) -> str:
-    """useful for receiving csv files and making inferences in LightGBM"""
-
-    path = os.getcwd()
-    x = pd.read_csv(f'{path}/{query}', index_col = 0)
-
- 
-
-    file = f'{path}/trained_model.pkl'
-    lgbm_model = pickle.load(open(file, 'rb'))
-
-    y_pred = lgbm_model.predict(x, num_interation=lgbm_model.best_iteration)
-    y_pred = pd.DataFrame(y_pred)
-    y_pred.to_csv(f'{path}/inference.csv')
+        y_pred = lgbm_model.predict(x, num_interation=lgbm_model.best_iteration)
+        y_pred = pd.DataFrame(y_pred)
+        y_pred.to_csv(f'{path}/inference.csv')
 
 
-    result = "LightGBMの推論が完了しました" 
-    return result
+        result = "LightGBMの推論が完了しました" 
+        return result
+
+    async def _arun(self, query: str) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("BingSearchRun does not support async")
