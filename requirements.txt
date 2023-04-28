@@ -1,4 +1,4 @@
 numpy
-langchain==0.0.118
-openai==0.27.2
-lightgbm
+langchain==0.0.152
+openai==00.27.5
+lightgbm==3.3.5
