@@ -131,6 +131,4 @@ dmypy.json
 
 
 /data
-
-docker-compose.yml
-run.sh
+/utils
