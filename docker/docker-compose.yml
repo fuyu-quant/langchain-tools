@@ -1,10 +1,10 @@
 version: '3.9'
 services:
   notebook:
-    container_name: langchain-tools
+    container_name: langchaintools
     image: jupyter/datascience-notebook
     ports:
-      - '8030:8030'
+      - '8090:8090'
     environment:
       - JUPYTER_ENABLE_LAB=yes
     volumes:
