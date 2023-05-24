@@ -78,7 +78,7 @@ class LgbmInferenceTool(BaseTool):
         df = pd.read_csv('/home/langchain-tools/data/test.csv')
 
 
-        file = 'trained_model.pkl'
+        file = '/home/langchain-tools/data/trained_model.pkl'
         lgbm_model = pickle.load(open(file, 'rb'))
 
         df = pd.read_csv('/home/langchain-tools/data/test.csv')
